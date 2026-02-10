@@ -1,7 +1,7 @@
 
 (async () => {
   const postsAll = await loadPosts();
-  const posts = postsAll.filter(p=>p.type==="back").sort(byDateDesc);
+  const posts = postsAll.filter(p=>p.type==="back").sort(byDateAsc);
 
   const list = document.querySelector("#timeline");
   list.innerHTML = "";
@@ -22,7 +22,6 @@
             <div class="pmeta"><span>${escapeHtml(fmtYM(p.date))}</span>${p.readingTime?`<span>${escapeHtml(p.readingTime)}</span>`:""}</div>
             <h2 class="ptitle"><a href="./post.html?id=${encodeURIComponent(p.id)}">${escapeHtml(p.title)}</a></h2>
             ${p.excerpt?`<div class="excerpt">${escapeHtml(p.excerpt)}</div>`:""}
-            <div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>
           </div>
           <div class="thumb">image</div>
         </div>

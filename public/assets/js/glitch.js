@@ -76,8 +76,7 @@
 
     for(const sp of picks){
       if(!sp) continue;
-      const modes = ["flipX","flipY","flipXY","tilt"];
-      const mode = modes[Math.floor(Math.random()*modes.length)];
+      const mode = "spinZ";
       sp.classList.add("weird", mode);
       setTimeout(()=>{
         sp.classList.remove("weird", mode);

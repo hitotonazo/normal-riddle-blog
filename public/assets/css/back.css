@@ -55,11 +55,6 @@ body.back .weird{
   transition: transform 220ms ease, filter 220ms ease;
   filter: saturate(1.05) contrast(1.05);
 }
-body.back .weird.flipX{ transform: scaleX(-1) !important; }
-body.back .weird.flipY{ transform: scaleY(-1) !important; }
-body.back .weird.flipXY{ transform: scale(-1,-1) !important; }
-body.back .weird.tilt{ transform: rotate(1.2deg) skewX(-2deg) !important; }
-
 /* 2-character units */
 body.back .bitpair{
   display:inline-block;
@@ -81,3 +76,5 @@ body.back .bitpair.noise{
   filter: blur(0.8px) contrast(1.12);
   text-shadow: 1px 0 rgba(120,170,255,0.18), -1px 0 rgba(255,120,180,0.14);
 }
+
+body.back .weird.spinZ{ transform: rotate(180deg) !important; }

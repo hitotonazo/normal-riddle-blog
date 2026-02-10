@@ -14,6 +14,10 @@ function fmtDayFromId(id){
   const d = parts.length>=3 ? parts[2] : "01";
   return String(d).padStart(2,"0");
 }
+function byDateAsc(a,b){
+  if(a.date !== b.date) return a.date > b.date ? 1 : -1;
+  return a.id > b.id ? 1 : -1;
+}
 function byDateDesc(a,b){
   if(a.date !== b.date) return a.date < b.date ? 1 : -1;
   return a.id < b.id ? 1 : -1;
@@ -32,5 +36,5 @@ async function loadPosts(){
 function buildArchive(posts){
   const map = new Map();
   posts.forEach(p=>{ if(p.date) map.set(p.date,(map.get(p.date)||0)+1); });
-  return Array.from(map.entries()).map(([ym,count])=>({ym,count})).sort((a,b)=>a.ym < b.ym ? 1 : -1);
+  return Array.from(map.entries()).map(([ym,count])=>({ym,count})).sort((a,b)=>a.ym > b.ym ? 1 : -1);
 }

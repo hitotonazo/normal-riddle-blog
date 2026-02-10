@@ -1,7 +1,7 @@
 
 (async () => {
   const postsAll = await loadPosts();
-  const posts = postsAll.filter(p=>p.type==="front").sort(byDateDesc);
+  const posts = postsAll.filter(p=>p.type==="front").sort(byDateAsc);
 
   const list = document.querySelector("#timeline");
   list.innerHTML = "";
