@@ -1,0 +1,51 @@
+
+/* back.html only: darker + slightly warped, without adding explicit horror UI elements */
+body.back{
+  background:#0f1115;
+  color:#e8e8ea;
+}
+body.back .topbar,
+body.back .hero,
+body.back .footer,
+body.back .side .box,
+body.back .article-card,
+body.back .hero-img{
+  background:#141823 !important;
+  border-color:#2a3140 !important;
+}
+body.back .breadcrumb,
+body.back .navitem,
+body.back .pmeta,
+body.back .notice,
+body.back .tag,
+body.back .archive a{
+  color:#b7bcc7 !important;
+}
+body.back a{ color:#8fb6ff; }
+body.back .navitem::before{ background:#4b5568; }
+body.back .timeline .t-item{ border-top-color:#2a3140; }
+body.back .vline{ background:#2a3140; }
+body.back .thumb{ background:#111420; border-color:#2a3140; color:#566079; }
+body.back .excerpt{ color:#d6d7db; opacity:0.95; }
+
+/* subtle distortion: use variable font-ish jitter + skew */
+body.back .ptitle,
+body.back .excerpt,
+body.back .article,
+body.back .pmeta,
+body.back .tag,
+body.back .breadcrumb{
+  transform: translateZ(0);
+  text-shadow: 0.6px 0 rgba(120,170,255,0.12), -0.6px 0 rgba(255,120,180,0.08);
+}
+body.back .ptitle{
+  letter-spacing:0.02em;
+}
+
+/* optional slight global skew on large screens only (keeps mobile readable) */
+@media (min-width: 980px){
+  body.back main{
+    transform: skewX(-0.6deg);
+    transform-origin: top left;
+  }
+}
