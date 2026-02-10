@@ -59,3 +59,25 @@ body.back .weird.flipX{ transform: scaleX(-1) !important; }
 body.back .weird.flipY{ transform: scaleY(-1) !important; }
 body.back .weird.flipXY{ transform: scale(-1,-1) !important; }
 body.back .weird.tilt{ transform: rotate(1.2deg) skewX(-2deg) !important; }
+
+/* 2-character units */
+body.back .bitpair{
+  display:inline-block;
+  will-change: transform, filter;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+/* noisy blur + shake */
+@keyframes noiseJitter {
+  0%   { transform: translate(0,0) }
+  20%  { transform: translate(0.6px,-0.4px) }
+  40%  { transform: translate(-0.8px,0.2px) }
+  60%  { transform: translate(0.4px,0.8px) }
+  80%  { transform: translate(-0.2px,-0.6px) }
+  100% { transform: translate(0,0) }
+}
+body.back .bitpair.noise{
+  animation: noiseJitter 160ms steps(2,end) infinite;
+  filter: blur(0.8px) contrast(1.12);
+  text-shadow: 1px 0 rgba(120,170,255,0.18), -1px 0 rgba(255,120,180,0.14);
+}
