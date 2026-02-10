@@ -20,7 +20,7 @@
         <div class="row">
           <div style="flex:1">
             <div class="pmeta"><span>${escapeHtml(fmtYM(p.date))}</span>${p.readingTime?`<span>${escapeHtml(p.readingTime)}</span>`:""}</div>
-            <h2 class="ptitle"><a href="./post.html?id=${encodeURIComponent(p.id)}">${escapeHtml(p.title)}</a></h2>
+            <h2 class="ptitle"><a href="./post.html?id=${encodeURIComponent(p.id)}&mode=back">${escapeHtml(p.title)}</a></h2>
             ${p.excerpt?`<div class="excerpt">${escapeHtml(p.excerpt)}</div>`:""}
           </div>
           <div class="thumb">image</div>

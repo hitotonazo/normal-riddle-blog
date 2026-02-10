@@ -64,3 +64,22 @@ a:hover{text-decoration:underline}
 
 .breadcrumb a{color:var(--muted)}
 .breadcrumb a:hover{color:#333;text-decoration:none}
+
+/* BGM toggle */
+.topbar-inner{display:flex;align-items:center;gap:12px}
+.bgm-btn{
+  margin-left:auto;
+  border:1px solid rgba(0,0,0,0.15);
+  background:#fff;
+  color:#444;
+  padding:6px 10px;
+  border-radius:10px;
+  font-size:12px;
+  cursor:pointer;
+}
+.bgm-btn[aria-pressed="true"]{background:#f3f4f6}
+body.back .bgm-btn{
+  background:#141823;
+  border-color:#2a3140;
+  color:#b7bcc7;
+}
