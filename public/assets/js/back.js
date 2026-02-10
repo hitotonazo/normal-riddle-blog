@@ -1,2 +1,2 @@
-(async()=>{const listEl=document.querySelector('#postList');const posts=(await loadPosts()).filter(p=>p.type==='front').sort(byDateDesc);
+(async()=>{const listEl=document.querySelector('#postList');const posts=(await loadPosts()).filter(p=>p.type==='back').sort(byDateDesc);
 listEl.innerHTML='';for(const p of posts){const li=document.createElement('li');li.innerHTML=`<div class="meta"><span>${fmtMonth(p.date)}</span></div><div class="post-title"><a href="./post.html?id=${encodeURIComponent(p.id)}">${p.title}</a></div><div class="excerpt">${p.excerpt||''}</div>`;listEl.appendChild(li);}})();
