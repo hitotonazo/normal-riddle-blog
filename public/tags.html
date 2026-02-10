@@ -1,29 +1,87 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>タグ | 記録</title>
-  <link rel="stylesheet" href="./assets/css/style.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>記録</title>
+  <link rel="stylesheet" href="./assets/css/style.css"/>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="site-title"><a href="./index.html">記録</a></div>
-      <div class="site-desc">日々のことを、忘れないために。</div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Ameba</div>
+      <div class="breadcrumb">ホーム<span>›</span>ブログ<span>›</span>記録</div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section class="card">
-      <h1 class="h2" id="tagTitle">タグ</h1>
-      <div class="notice">※タグ別の一覧です。</div>
-      <div class="notice"><a href="./index.html">← 記事一覧へ</a></div>
-    </section>
-    <ul class="list" id="tagList"></ul>
-  </main>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-img">
+        <img src="./assets/img/cover.svg" alt="cover" style="display:block;width:100%;height:auto"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="navrow">
+    <a class="navitem" href="./index.html">ブログトップ</a>
+    <a class="navitem" href="./index.html">記事一覧</a>
+    <a class="navitem" href="./tags.html">タグ</a>
+  </div>
+
+  <div class="page">
+    <div class="grid">
+      <main><div class='article-card'><h2 class='ptitle' style='margin:0 0 10px'>タグ</h2><div id='tagWrap' class='archive'></div></div></main>
+      <aside class="side">
+        <div class="box">
+          <h3>このブログを検索する</h3>
+          <div class="search">
+            <input id="q" type="search" placeholder="キーワード"/>
+            <button id="btn">検索</button>
+          </div>
+          <div class="notice" id="filterNote"></div>
+        </div>
+        <div class="box">
+          <h3>プロフィール</h3>
+          <div class="profile">
+            <div class="avatar"></div>
+            <div>
+              <div class="pname">takumi</div>
+              <div class="pdesc">日々のことを、忘れないために。</div>
+            </div>
+          </div>
+        </div>
+        <div class="box archive">
+          <h3>月別</h3>
+          <div id="archiveList"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-inner">
+      <div>© 記録</div>
+      <div><a class="hidden-link" href="./back.html">.</a></div>
+    </div>
+  </div>
 
   <script src="./assets/js/common.js"></script>
   <script src="./assets/js/tags.js"></script>
+  <script>
+    const btn=document.getElementById('btn');
+    if(btn){
+      btn.addEventListener('click',()=>{
+        const q=(document.getElementById('q').value||'').trim();
+        if(!q) return;
+        const items=document.querySelectorAll('.t-item');
+        items.forEach(li=>{
+          const t=(li.querySelector('.ptitle')?.innerText||'') + ' ' + (li.querySelector('.excerpt')?.innerText||'');
+          li.style.display = t.includes(q) ? '' : 'none';
+        });
+        const note=document.getElementById('filterNote');
+        if(note) note.textContent = `「${q}」で絞り込み`;
+      });
+    }
+  </script>
 </body>
 </html>
