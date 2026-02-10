@@ -44,7 +44,7 @@
 
   // Targets: split text into 2-char chunks
   const candidates = Array.from(document.querySelectorAll(
-    ".ptitle a, .excerpt, .article, .pmeta span, .tag, .breadcrumb a"
+    ".ptitle, .ptitle a, .excerpt, .article, .pmeta span, .tag, .breadcrumb a"
   ));
   candidates.forEach(splitToPairs);
 
