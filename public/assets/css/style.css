@@ -61,3 +61,6 @@ a:hover{text-decoration:underline}
 .footer-inner{max-width:var(--container);margin:0 auto;display:flex;justify-content:space-between;align-items:center}
 .hidden-link{opacity:0.05}
 .hidden-link:hover{opacity:0.2}
+
+.breadcrumb a{color:var(--muted)}
+.breadcrumb a:hover{color:#333;text-decoration:none}

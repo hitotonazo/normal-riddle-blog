@@ -49,3 +49,13 @@ body.back .ptitle{
     transform-origin: top left;
   }
 }
+
+/* stronger weirdness: brief flips applied by glitch.js */
+body.back .weird{
+  transition: transform 220ms ease, filter 220ms ease;
+  filter: saturate(1.05) contrast(1.05);
+}
+body.back .weird.flipX{ transform: scaleX(-1) !important; }
+body.back .weird.flipY{ transform: scaleY(-1) !important; }
+body.back .weird.flipXY{ transform: scale(-1,-1) !important; }
+body.back .weird.tilt{ transform: rotate(1.2deg) skewX(-2deg) !important; }
