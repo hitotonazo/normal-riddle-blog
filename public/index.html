@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>記録</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="site-title"><a href="./index.html">記録</a></div>
+      <div class="site-desc">日々のことを、忘れないために。</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h1 class="h2">記事一覧</h1>
+      <div class="meta">
+        <span id="count"></span>
+        <span>※UIはシンプル固定（表/裏の区別は表示しません）</span>
+      </div>
+
+      <div class="search-row">
+        <input id="q" type="search" placeholder="検索（タイトル・本文）" autocomplete="off" />
+        <select id="tagSelect">
+          <option value="">タグ（すべて）</option>
+        </select>
+        <button class="btn" id="resetBtn" type="button">リセット</button>
+      </div>
+      <div class="notice">※検索はローカル（ブラウザ内）で行います。</div>
+    </section>
+
+    <ul class="list" id="postList" aria-live="polite"></ul>
+
+    <div class="footer">
+      <div class="footer-inner">
+        <div>© 記録</div>
+        <div><a href="./tags.html">タグ一覧</a></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./assets/js/common.js"></script>
+  <script src="./assets/js/index.js"></script>
+</body>
+</html>
