@@ -33,7 +33,7 @@
     // 2) baseUrl + filenames (R2 recommended)
     const baseUrl = (bgm.baseUrl || "").replace(/\/+$/,"");
     if(baseUrl){
-      return isBack ? `${baseUrl}/back.mp3` : `${baseUrl}/front.mp3`;
+      return isBack ? `${baseUrl}/back.wav` : `${baseUrl}/front.wav`;
     }
 
     // 3) fallback local
