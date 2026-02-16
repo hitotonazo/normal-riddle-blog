@@ -51,3 +51,14 @@ function joinUrl(base, path){
   if(!base) return path;
   return base.replace(/\/+$/,"") + "/" + path.replace(/^\/+/, "");
 }
+
+// Resolve an asset path using the R2 public baseUrl from /data/config.json.
+// - If `path` is already absolute (http/https), return it as-is.
+// - If baseUrl is missing, return the original path.
+function resolveAssetUrl(config, path){
+  if(!path) return "";
+  if(/^https?:\/\//i.test(path)) return path;
+  const base = (config && config.assets && config.assets.baseUrl) ? String(config.assets.baseUrl) : "";
+  if(!base) return path;
+  return joinUrl(base, String(path));
+}
