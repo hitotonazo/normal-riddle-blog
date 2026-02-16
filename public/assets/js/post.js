@@ -39,7 +39,7 @@ function applyUiImages(cfg, mode){
     wrap.innerHTML = `<div class="article-card">記事が見つかりませんでした。<div class="notice"><a href="./index.html">一覧へ</a></div></div>`;
     return;
   }
-  document.title = `${p.title} | 記録`;
+  document.title = `${p.title} | 手箱日記`;
 
   const mode = new URL(location.href).searchParams.get("mode");
   const isBack = (p.type === "back") || (mode === "back");
@@ -61,6 +61,11 @@ function applyUiImages(cfg, mode){
   }
 
   const backUrl = (p.type === "back") ? "./back.html" : "./index.html";
+
+  const cfg = await loadConfig();
+    const baseAssets = (cfg.assets && cfg.assets.baseUrl) ? cfg.assets.baseUrl : "";
+    const heroUrl = joinUrl(baseAssets, `blog-assets/images/${p.date}.png`);
+
 
   wrap.innerHTML = `
     <div class="article-card">
