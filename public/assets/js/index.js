@@ -42,6 +42,19 @@ function applyUiImages(cfg, mode){
 
 (async () => {
   const cfg = await loadConfig();
+
+  // Top hero (red frame area) comes from R2 (public) via config.json.
+  // If you don't set it, the page would fall back to the bundled cover.svg.
+  try {
+    const params = new URLSearchParams(location.search);
+    const mode = params.get('mode') === 'back' ? 'back' : 'front';
+    const heroKey = mode === 'back' ? cfg.assets?.ui?.topHeroBack : cfg.assets?.ui?.topHeroFront;
+    const heroUrl = resolveAssetUrl(cfg, heroKey);
+    const heroImg = document.getElementById('heroImg');
+    if (heroImg && heroUrl) heroImg.src = heroUrl;
+  } catch (_) {
+    // ignore
+  }
   const postsAll = await loadPosts();
   const posts = postsAll.filter(p=>p.type==="front").sort(byDateAsc);
 
