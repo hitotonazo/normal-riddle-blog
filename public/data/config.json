@@ -1,11 +1,11 @@
 {
   "bgm": {
-    "baseUrl": "",
+    "baseUrl": "https://pub-6211ea07ceec4fa6be7115ba61e214a5.r2.dev/blog-assets/bgm",
     "frontUrl": "",
     "backUrl": ""
   },
   "assets": {
-    "baseUrl": "",
+    "baseUrl": "https://pub-6211ea07ceec4fa6be7115ba61e214a5.r2.dev",
     "ui": {
       "frontHero": "blog-assets/ui/hero_front.png",
       "backHero": "blog-assets/ui/hero_back.png",
