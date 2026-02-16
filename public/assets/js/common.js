@@ -38,3 +38,16 @@ function buildArchive(posts){
   posts.forEach(p=>{ if(p.date) map.set(p.date,(map.get(p.date)||0)+1); });
   return Array.from(map.entries()).map(([ym,count])=>({ym,count})).sort((a,b)=>a.ym > b.ym ? 1 : -1);
 }
+
+
+async function loadConfig(){
+  try{
+    const res = await fetch("./data/config.json",{cache:"no-store"});
+    if(!res.ok) return {};
+    return await res.json();
+  }catch(e){ return {}; }
+}
+function joinUrl(base, path){
+  if(!base) return path;
+  return base.replace(/\/+$/,"") + "/" + path.replace(/^\/+/, "");
+}

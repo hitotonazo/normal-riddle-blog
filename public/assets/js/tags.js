@@ -1,3 +1,30 @@
+async function loadSiteConfig(){
+  try{
+    const res = await fetch("./data/config.json", {cache:"no-store"});
+    if(!res.ok) throw new Error("config fetch failed");
+    return await res.json();
+  }catch(e){
+    return {};
+  }
+}
+function joinUrl(base, rel){
+  if(!base) return rel || "";
+  if(!rel) return base;
+  return base.replace(/\/+$/,"") + "/" + rel.replace(/^\/+/, "");
+}
+function applyUiImages(cfg, mode){
+  const base = (cfg && cfg.assets && cfg.assets.baseUrl) ? cfg.assets.baseUrl : "";
+  const ui = (cfg && cfg.assets && cfg.assets.ui) ? cfg.assets.ui : {};
+  const heroPath = (mode === "back") ? ui.backHero : ui.frontHero;
+  const profPath = (mode === "back") ? ui.backProfile : ui.frontProfile;
+
+  const heroImg = document.getElementById("heroImg");
+  if(heroImg && heroPath){ heroImg.src = joinUrl(base, heroPath); }
+
+  const profImg = document.getElementById("profileImg");
+  if(profImg && profPath){ profImg.src = joinUrl(base, profPath); }
+}
+
 
 (async () => {
   const postsAll = await loadPosts();
