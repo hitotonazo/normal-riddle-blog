@@ -10,7 +10,15 @@
       "frontHero": "blog-assets/ui/hero_front.png",
       "backHero": "blog-assets/ui/hero_back.png",
       "frontProfile": "blog-assets/ui/profile_front.png",
-      "backProfile": "blog-assets/ui/profile_back.png"
+      "backProfile": "blog-assets/ui/profile_back.png",
+      "topHeroFront": "blog-assets/ui/hero_front.png",
+      "topHeroBack": "blog-assets/ui/hero_back.png"
+    },
+    "paths": {
+      "images": "blog-assets/images",
+      "thumbnails": "blog-assets/thumbnails",
+      "ui": "blog-assets/ui",
+      "bgm": "blog-assets/bgm"
     }
   }
 }
