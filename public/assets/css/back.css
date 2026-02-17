@@ -21,6 +21,10 @@ body.back .tag,
 body.back .archive a{
   color:#b7bcc7 !important;
 }
+
+/* Ensure the left date column is readable on dark background */
+body.back .datebox{ color:#e8e8ea !important; }
+body.back .month{ color:#b7bcc7 !important; }
 body.back a{ color:#8fb6ff; }
 body.back .navitem::before{ background:#4b5568; }
 body.back .timeline .t-item{ border-top-color:#2a3140; }
