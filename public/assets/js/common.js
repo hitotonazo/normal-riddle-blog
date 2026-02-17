@@ -23,7 +23,8 @@ function byDateDesc(a,b){
   return a.id < b.id ? 1 : -1;
 }
 async function loadPosts(){
-  const res = await fetch("./data/posts.json",{cache:"no-store"});
+  // NOTE: use absolute paths so /back (subdirectory) can load shared JSON correctly.
+  const res = await fetch("/data/posts.json",{cache:"no-store"});
   if(!res.ok) throw new Error("posts.jsonの読み込みに失敗しました");
   const posts = await res.json();
   return posts.map(p => ({
@@ -42,7 +43,8 @@ function buildArchive(posts){
 
 async function loadConfig(){
   try{
-    const res = await fetch("./data/config.json",{cache:"no-store"});
+    // NOTE: use absolute paths so /back (subdirectory) can load shared JSON correctly.
+    const res = await fetch("/data/config.json",{cache:"no-store"});
     if(!res.ok) return {};
     return await res.json();
   }catch(e){ return {}; }
