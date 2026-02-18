@@ -89,7 +89,7 @@ function applyUiImages(cfg, mode){
         <img class="post-hero-img" src="${escapeHtml(heroUrl)}" alt="" onerror="this.closest('.post-hero').style.display='none'" />
       </div>
       ${isBack ? "" : `<div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`}
-      <div class="article" style="margin-top:14px">${escapeHtml(p.body)}</div>
+      <div class="article" style="margin-top:14px">${escapeHtml(String(p.body || '').replace(/\\n/g, '\n'))}</div>
       <div class="notice"><a href="${backUrl}">← 記事一覧へ</a></div>
     </div>
   `;
