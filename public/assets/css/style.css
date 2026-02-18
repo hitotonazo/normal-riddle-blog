@@ -57,6 +57,13 @@ a:hover{text-decoration:underline}
 .archive a:first-child{border-top:none}
 .article-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:18px}
 
+/* Post page hero image should always fit the article width */
+.post-hero{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:rgba(0,0,0,.02)}
+.post-hero-img{display:block;width:100%;height:auto}
+
+/* Any images inside article body */
+.article img{max-width:100%;height:auto;display:block;margin:14px auto}
+
 /* Post page: article only (no hero / no sidebar) */
 .post-only{max-width:860px;margin:0 auto}
 .article{line-height:1.9;font-size:15px;white-space:pre-wrap}
