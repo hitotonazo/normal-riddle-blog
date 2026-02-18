@@ -29,37 +29,54 @@ function buildPostUrl(post) {
   return url.toString();
 }
 
+function svgPlaceholderDataUrl(label) {
+  const text = label || 'image';
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="320" height="240">
+    <rect width="100%" height="100%" fill="#1a2130" />
+    <rect x="12" y="12" width="296" height="216" rx="16" ry="16" fill="#0f141e" stroke="#2a3140" />
+    <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="#9aa6bb" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="22">${text}</text>
+  </svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;
+}
+
 function createTimelineItem(post, config) {
   const li = document.createElement('li');
   li.className = 't-item';
 
-  const [y, m] = String(post.date || '').split('-');
-  const monthShort = m || '';
-  const day = String(post.id || '').split('-')[2] || '';
+  const [, m] = String(post.date || '').split('-');
+  const day = String(post.id || '').split('-')[2] || '01';
 
-  const thumbRel = post.thumbnail || '';
-  const thumb = thumbRel ? resolveAssetUrl(config, thumbRel) : '';
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const mi = (parseInt(m, 10) || 1) - 1;
+  const monthShort = monthNames[Math.max(0, Math.min(11, mi))];
+
+  // Thumbnails follow the same convention as the front page: blog-assets/thumbnails/YYYY-MM.png
+  // (Back posts in posts.json typically don't carry an explicit thumbnail field.)
+  const thumbUrl = resolveAssetUrl(config, `blog-assets/thumbnails/${post.date}.png`);
+  const thumbFallback = svgPlaceholderDataUrl('image');
+
+  const url = buildPostUrl(post);
+  const tagsHtml = (post.tags || []).slice(0, 3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
 
   li.innerHTML = `
     <div class="datebox">
-      <div class="d-day">${escapeHtml(day)}</div>
-      <div class="d-month">${escapeHtml(monthShort ? monthShort : '')}</div>
+      <div class="day">${escapeHtml(day)}</div>
+      <div class="month">${escapeHtml(monthShort || '')}</div>
+      <div class="vline"></div>
     </div>
     <div class="postcard">
-      <a class="postlink" href="${escapeHtml(buildPostUrl(post))}">
-        <div class="postmeta">
-          <div class="meta-top">
-            <span class="meta-date">${escapeHtml(post.date || '')}</span>
-            <span class="meta-read">${escapeHtml(post.readingTime || '')}</span>
-          </div>
-          <div class="posttitle">${escapeHtml(post.title || '')}</div>
-          <div class="postexcerpt">${escapeHtml(post.excerpt || '')}</div>
-          <div class="posttags">
-            ${(post.tags || []).slice(0, 3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}
-          </div>
+      <div class="row">
+        <div style="flex:1;min-width:0">
+          <div class="pmeta">${escapeHtml(post.date || '')}${post.readingTime ? ' ・ ' + escapeHtml(post.readingTime) : ''}</div>
+          <h2 class="ptitle"><a href="${escapeHtml(url)}">${escapeHtml(post.title || '')}</a></h2>
+          <div class="excerpt">${escapeHtml(post.excerpt || '')}</div>
+          <div class="tags">${tagsHtml}</div>
         </div>
-        ${thumb ? `<img class="thumb" src="${escapeHtml(thumb)}" alt="">` : ''}
-      </a>
+        <a class="thumb" href="${escapeHtml(url)}" aria-label="open">
+          <img class="thumbimg" src="${escapeHtml(thumbUrl)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${escapeHtml(thumbFallback)}'">
+        </a>
+      </div>
     </div>
   `.trim();
 
