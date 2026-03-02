@@ -11,11 +11,11 @@
   --font-base:16px;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:var(--bg);color:var(--fg);
+html{font-size:var(--font-base);}
+html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:var(--bg);color:var(--fg);}
 html[data-font="sm"]{--font-base:14px}
 html[data-font="md"]{--font-base:16px}
 html[data-font="lg"]{--font-base:18px}
-font-size:var(--font-base)}
 a{color:var(--link);text-decoration:none}
 a:hover{text-decoration:underline}
 .topbar{border-bottom:1px solid var(--line);background:#fff}
@@ -111,6 +111,54 @@ body.back .bgm-btn{
   align-items:center;
   gap:6px;
 }
+/* 文字サイズ切替（実際の本文サイズに追従） */
+html[data-font="sm"] .article{font-size:14px}
+html[data-font="md"] .article{font-size:16px}
+html[data-font="lg"] .article{font-size:18px}
+
+html[data-font="sm"] .excerpt{font-size:14px}
+html[data-font="md"] .excerpt{font-size:15px}
+html[data-font="lg"] .excerpt{font-size:17px}
+
+html[data-font="sm"] .pmeta,
+html[data-font="sm"] .breadcrumb,
+html[data-font="sm"] .tag,
+html[data-font="sm"] .notice,
+html[data-font="sm"] .footer{font-size:12px}
+
+html[data-font="md"] .pmeta,
+html[data-font="md"] .breadcrumb,
+html[data-font="md"] .tag,
+html[data-font="md"] .notice,
+html[data-font="md"] .footer{font-size:13px}
+
+html[data-font="lg"] .pmeta,
+html[data-font="lg"] .breadcrumb,
+html[data-font="lg"] .tag,
+html[data-font="lg"] .notice,
+html[data-font="lg"] .footer{font-size:14px}
+
+html[data-font="sm"] .navitem{font-size:13px}
+html[data-font="md"] .navitem{font-size:14px}
+html[data-font="lg"] .navitem{font-size:15px}
+
+html[data-font="sm"] .side h3{font-size:13px}
+html[data-font="md"] .side h3{font-size:14px}
+html[data-font="lg"] .side h3{font-size:15px}
+
+html[data-font="sm"] .search input{font-size:14px}
+html[data-font="md"] .search input{font-size:15px}
+html[data-font="lg"] .search input{font-size:16px}
+
+html[data-font="sm"] .archive{font-size:13px}
+html[data-font="md"] .archive{font-size:14px}
+html[data-font="lg"] .archive{font-size:15px}
+
+/* ボタン自体の文字サイズも「小・中・大」に合わせる（プレビュー） */
+.font-btn[data-font="sm"]{font-size:14px}
+.font-btn[data-font="md"]{font-size:16px}
+.font-btn[data-font="lg"]{font-size:18px}
+
 .font-btn{
   border:1px solid rgba(0,0,0,0.15);
   background:#fff;
