@@ -8,15 +8,20 @@
   --link:#1a66cc;
   --container:1100px;
   --radius:10px;
+  --font-base:16px;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:var(--bg);color:var(--fg)}
+html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:var(--bg);color:var(--fg);
+html[data-font="sm"]{--font-base:14px}
+html[data-font="md"]{--font-base:16px}
+html[data-font="lg"]{--font-base:18px}
+font-size:var(--font-base)}
 a{color:var(--link);text-decoration:none}
 a:hover{text-decoration:underline}
 .topbar{border-bottom:1px solid var(--line);background:#fff}
 .topbar-inner{max-width:var(--container);margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:12px}
 .brand{font-weight:800;letter-spacing:.02em}
-.breadcrumb{font-size:12px;color:var(--muted)}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:10px;flex:1;flex-wrap:wrap}
 .breadcrumb span{margin:0 6px;color:#aaa}
 .hero{border-bottom:1px solid var(--line);background:var(--soft)}
 .hero-inner{max-width:var(--container);margin:0 auto;padding:18px 14px}
@@ -79,7 +84,7 @@ a:hover{text-decoration:underline}
 /* BGM toggle */
 .topbar-inner{display:flex;align-items:center;gap:12px}
 .bgm-btn{
-  margin-left:auto;
+  
   border:1px solid rgba(0,0,0,0.15);
   background:#fff;
   color:#444;
@@ -94,6 +99,35 @@ body.back .bgm-btn{
   border-color:#2a3140;
   color:#b7bcc7;
 }
+
+.top-controls{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.font-size{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.font-btn{
+  border:1px solid rgba(0,0,0,0.15);
+  background:#fff;
+  color:#444;
+  padding:6px 10px;
+  border-radius:10px;
+  font-size:12px;
+  cursor:pointer;
+}
+.font-btn[aria-pressed="true"]{background:#f3f4f6;font-weight:700}
+
+body.back .font-btn{
+  background:#141823;
+  border-color:#2a3140;
+  color:#b7bcc7;
+}
+body.back .font-btn[aria-pressed="true"]{background:#0f1115}
 
 /* UI images from R2 */
 .hero-media{ margin: 0 0 16px; border-radius: 8px; overflow: hidden; background: #f3f3f3; }

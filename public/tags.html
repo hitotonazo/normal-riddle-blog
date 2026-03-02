@@ -10,7 +10,16 @@
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">手箱日記</div>
-      <div class="breadcrumb"><a href="./index.html">トップ</a>　<a href="./index.html">記事一覧</a>　<a href="./tags.html">タグ</a>      <button class="bgm-btn" id="bgmToggle" type="button" aria-pressed="false">BGM: ON</button>
+      <div class="breadcrumb"><a href="./index.html">トップ</a>　<a href="./index.html">記事一覧</a>　<a href="./tags.html">タグ</a>
+
+      <div class="top-controls">
+        <div class="font-size" role="group" aria-label="文字サイズ">
+          <button class="font-btn" type="button" data-font="sm" aria-pressed="false">小</button>
+          <button class="font-btn" type="button" data-font="md" aria-pressed="true">中</button>
+          <button class="font-btn" type="button" data-font="lg" aria-pressed="false">大</button>
+        </div>
+        <button class="bgm-btn" id="bgmToggle" type="button" aria-pressed="false">BGM: ON</button>
+      </div>
 </div></div>
   </div>
 
@@ -83,6 +92,7 @@
       });
     }
   </script>
+  <script src="./assets/js/fontsize.js"></script>
   <script src="./assets/js/bgm.js"></script>
 </body>
 </html>
