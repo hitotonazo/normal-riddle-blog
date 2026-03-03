@@ -5,6 +5,37 @@
   };
   const setStep = (n) => { try { sessionStorage.setItem(KEY, String(n)); } catch(e){} };
 
+  // Back-page entry effect: full blackout then gradual reveal
+  function runBackEntryEffectIfNeeded(){
+    try {
+      const isBack = /(^|\/)(back\.html)(\?|#|$)/.test(location.pathname);
+      if(!isBack) return;
+      const flag = sessionStorage.getItem("enter_back_blackout_fx");
+      if(!flag) return;
+      sessionStorage.removeItem("enter_back_blackout_fx");
+      // Create overlay
+      const ov = document.createElement("div");
+      ov.className = "back-entry-overlay";
+      document.documentElement.appendChild(ov);
+      // Force reflow then animate out
+      requestAnimationFrame(() => {
+        ov.classList.add("reveal");
+        // Remove after animation completes
+        setTimeout(() => {
+          ov.remove();
+        }, 2200);
+      });
+    } catch(e){}
+  }
+
+  // Run ASAP (before other interactions)
+  if(document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runBackEntryEffectIfNeeded);
+  } else {
+    runBackEntryEffectIfNeeded();
+  }
+
+
   function triggerCollapseAndGo(targetUrl){
     // Prevent double trigger
     if(document.body.classList.contains("front-collapse")) return;
@@ -24,7 +55,8 @@
       document.body.classList.add("collapse-freeze");
     }catch(e){}
     // Navigate after animation
-    setTimeout(()=>{ window.location.href = targetUrl; }, 1100);
+    setTimeout(()=>{ try{ sessionStorage.setItem("enter_back_blackout_fx","1"); }catch(e){}
+      window.location.href = targetUrl; }, 1100);
   }
 
   // Step 1: takumi icon click
