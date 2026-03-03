@@ -77,8 +77,33 @@
 
   if(btn){
     btn.addEventListener("click", async ()=>{
+      // --- Secret gate (back blog access) ---
+      // Step 2: after clicking Takumi icon, click BGM while it is (or becomes) ON.
+      let gate = false;
+      try{ gate = sessionStorage.getItem("takumi_gate1")==="1"; }catch(e){}
+
+      // If the gate is armed and we're not already in back mode:
+      // - If BGM is OFF, turn it ON then redirect.
+      // - If BGM is already ON, keep it ON (do not toggle OFF) and redirect.
+      if(gate && !isBack){
+        if(!enabled){
+          enabled = true;
+          try{ localStorage.setItem(KEY, "on"); }catch(e){}
+          await tryPlay();
+          setLabel(true);
+        }else{
+          // keep ON
+          setLabel(true);
+        }
+        try{ sessionStorage.removeItem("takumi_gate1"); }catch(e){}
+        // small delay so the click feels "accepted"
+        setTimeout(()=>{ location.href = "./back.html"; }, 120);
+        return;
+      }
+
+      // Normal toggle behavior
       enabled = !enabled;
-      localStorage.setItem(KEY, enabled ? "on" : "off");
+      try{ localStorage.setItem(KEY, enabled ? "on" : "off"); }catch(e){}
       if(enabled){
         await tryPlay();
       }else{

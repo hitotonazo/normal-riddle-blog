@@ -64,3 +64,18 @@ function resolveAssetUrl(config, path){
   if(!base) return path;
   return joinUrl(base, String(path));
 }
+
+
+// --- Secret gate (back blog access) ---
+// Step 1: click Takumi icon -> sets a session flag.
+(function(){
+  try{
+    const img = document.getElementById("profileImg");
+    if(!img) return;
+    img.style.cursor = "pointer";
+    img.setAttribute("title",""); // keep silent
+    img.addEventListener("click", ()=>{
+      try{ sessionStorage.setItem("takumi_gate1","1"); }catch(e){}
+    });
+  }catch(e){}
+})();
