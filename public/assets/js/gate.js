@@ -5,6 +5,28 @@
   };
   const setStep = (n) => { try { sessionStorage.setItem(KEY, String(n)); } catch(e){} };
 
+  function triggerCollapseAndGo(targetUrl){
+    // Prevent double trigger
+    if(document.body.classList.contains("front-collapse")) return;
+    document.body.classList.add("front-collapse");
+    // Overlay
+    let ov = document.getElementById("collapseOverlay");
+    if(!ov){
+      ov = document.createElement("div");
+      ov.id = "collapseOverlay";
+      ov.innerHTML = '<div class="scan"></div><div class="noise"></div><div class="shards"></div>';
+      document.body.appendChild(ov);
+    }
+    // Freeze scroll to sell the "break"
+    try{
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      document.body.style.top = (-y) + "px";
+      document.body.classList.add("collapse-freeze");
+    }catch(e){}
+    // Navigate after animation
+    setTimeout(()=>{ window.location.href = targetUrl; }, 1100);
+  }
+
   // Step 1: takumi icon click
   function bindProfile(){
     const img = document.getElementById("profileImg");
@@ -73,7 +95,7 @@
         // go back blog
         const url = new URL(location.href);
         const base = url.pathname.endsWith("/") ? url.pathname : url.pathname.replace(/[^\/]*$/, "");
-        location.href = base + "back.html";
+        triggerCollapseAndGo(base + "back.html");
         return;
       }
       // normal: thumbnail opens the post
