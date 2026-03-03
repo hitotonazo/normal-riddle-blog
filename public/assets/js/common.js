@@ -66,16 +66,5 @@ function resolveAssetUrl(config, path){
 }
 
 
-// --- Secret gate (back blog access) ---
-// Step 1: click Takumi icon -> sets a session flag.
-(function(){
-  try{
-    const img = document.getElementById("profileImg");
-    if(!img) return;
-    img.style.cursor = "pointer";
-    img.setAttribute("title",""); // keep silent
-    img.addEventListener("click", ()=>{
-      try{ sessionStorage.setItem("takumi_gate1","1"); }catch(e){}
-    });
-  }catch(e){}
-})();
+// NOTE: Back-blog access is controlled by /assets/js/gate.js (multi-step).
+// Keep this file free of any direct navigation triggers.
