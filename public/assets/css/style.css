@@ -189,3 +189,110 @@ body.back .font-btn[aria-pressed="true"]{background:#0f1115}
 /* Gate thumbnails clickable */
 .thumb.gate-thumb{ cursor:pointer; }
 .thumb.gate-thumb:focus{ outline:2px solid rgba(255,255,255,.25); outline-offset:2px; }
+
+/* --- Back blog gate: front blog collapse effect --- */
+#collapseOverlay{
+  position:fixed; inset:0; z-index:9999;
+  pointer-events:none; opacity:0;
+  mix-blend-mode:multiply;
+}
+#collapseOverlay .scan{
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.00) 0px,
+    rgba(0,0,0,0.00) 2px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.00) 6px
+  );
+  animation: collapse-scan 160ms infinite;
+}
+#collapseOverlay .noise{
+  position:absolute; inset:-20%;
+  background-image:
+    radial-gradient(rgba(0,0,0,0.10) 1px, rgba(0,0,0,0) 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05), rgba(0,0,0,0));
+  background-size: 3px 3px, 100% 100%;
+  animation: collapse-noise 90ms infinite;
+  filter: contrast(140%) brightness(90%);
+}
+#collapseOverlay .shards{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.12) 55%, rgba(0,0,0,0.0) 60%),
+    linear-gradient(45deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.10) 45%, rgba(0,0,0,0.0) 52%);
+  background-size: 260px 260px, 220px 220px;
+  animation: collapse-shards 220ms infinite;
+  opacity:.0;
+}
+
+body.front-collapse #collapseOverlay{ opacity:1; }
+body.front-collapse #collapseOverlay .shards{ opacity:.7; }
+
+body.front-collapse{
+  cursor: progress;
+}
+body.front-collapse *{
+  transition: transform 250ms ease, filter 250ms ease, opacity 250ms ease;
+}
+
+body.front-collapse .topbar{
+  transform: translateY(-6px) skewX(-1deg);
+  filter: blur(0.6px) contrast(120%);
+}
+body.front-collapse .timeline,
+body.front-collapse .content,
+body.front-collapse .container,
+body.front-collapse main{
+  transform: translateX(-10px) skewX(1.2deg);
+  filter: blur(1.2px) contrast(120%);
+}
+body.front-collapse .thumb,
+body.front-collapse img,
+body.front-collapse .post-card{
+  transform: translateY(2px) skewY(-1deg);
+  filter: blur(1.4px) saturate(80%);
+}
+body.front-collapse a,
+body.front-collapse button,
+body.front-collapse input{
+  pointer-events:none;
+}
+
+body.front-collapse::before{
+  content:"";
+  position:fixed; inset:0; z-index:9998;
+  background: rgba(255,255,255,0.70);
+  animation: collapse-flash 650ms ease-in-out 1;
+  pointer-events:none;
+}
+
+/* Freeze scroll (optional) */
+body.collapse-freeze{
+  position:fixed; width:100%;
+  overflow:hidden;
+}
+
+@keyframes collapse-flash{
+  0%{ opacity:0; }
+  10%{ opacity:1; }
+  55%{ opacity:.35; }
+  100%{ opacity:0; }
+}
+@keyframes collapse-scan{
+  0%{ transform: translateY(0); opacity:.65; }
+  50%{ opacity:.85; }
+  100%{ transform: translateY(6px); opacity:.65; }
+}
+@keyframes collapse-noise{
+  0%{ transform: translate(0,0); }
+  25%{ transform: translate(-6px,2px); }
+  50%{ transform: translate(4px,-3px); }
+  75%{ transform: translate(-2px,-5px); }
+  100%{ transform: translate(3px,4px); }
+}
+@keyframes collapse-shards{
+  0%{ transform: translate(0,0) rotate(0deg); }
+  50%{ transform: translate(-8px,6px) rotate(1deg); }
+  100%{ transform: translate(7px,-5px) rotate(-1deg); }
+}
