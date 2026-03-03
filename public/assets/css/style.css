@@ -296,3 +296,29 @@ body.collapse-freeze{
   50%{ transform: translate(-8px,6px) rotate(1deg); }
   100%{ transform: translate(7px,-5px) rotate(-1deg); }
 }
+
+
+
+/* === Back entry blackout -> reveal effect (only when coming from front gate) === */
+.back-entry-overlay{
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 99999;
+  filter: none;
+}
+.back-entry-overlay.reveal{
+  animation: backEntryReveal 2.0s ease-in-out forwards;
+}
+@keyframes backEntryReveal{
+  0%   { opacity: 1; }
+  15%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+
+/* Prevent white flash on back entry */
+html{ background-color: #000; }
