@@ -79,7 +79,7 @@ function applyUiImages(cfg, mode){
             ${p.excerpt?`<div class="excerpt">${escapeHtml(p.excerpt)}</div>`:""}
             <div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>
           </div>
-          <div class="thumb" style="background-image:url(${escapeHtml(joinUrl((cfg.assets&&cfg.assets.baseUrl)||"", `blog-assets/thumbnails/${p.date}.png`))})"></div>
+          <div class="thumb gate-thumb" data-post-id="${escapeHtml(p.id)}" data-post-date="${escapeHtml(p.date)}" role="button" tabindex="0" style="background-image:url(${escapeHtml(joinUrl((cfg.assets&&cfg.assets.baseUrl)||"", `blog-assets/thumbnails/${p.date}.png`))})"></div>
         </div>
       </div>
     `;
