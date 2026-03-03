@@ -42,6 +42,11 @@
 
   // Step 4: click any thumbnail (index timeline)
   function bindThumb(){
+    // Only the Aug 2024 post thumbnail can unlock the back blog.
+    // (Dummy-friendly: other thumbnails remain clickable but will NOT unlock.)
+    const TARGET_POST_DATE = "2024-08";
+    const TARGET_POST_ID = "2024-08-09";
+
     function goPost(id){
       if(!id) return;
       const url = new URL(location.href);
@@ -57,8 +62,11 @@
       if(!thumb) return;
 
       const postId = thumb.getAttribute("data-post-id");
+      const postDate = thumb.getAttribute("data-post-date");
       const s = getStep();
-      if(s >= 3){
+      const isTarget = (postDate === TARGET_POST_DATE) || (postId === TARGET_POST_ID);
+
+      if(s >= 3 && isTarget){
         e.preventDefault();
         e.stopPropagation();
         setStep(0);
