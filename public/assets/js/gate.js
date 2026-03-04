@@ -8,7 +8,7 @@
   // Back-page entry effect: full blackout then gradual reveal
   function runBackEntryEffectIfNeeded(){
     try {
-      const isBack = /(^|\/)(back\.html)(\?|#|$)/.test(location.pathname);
+      const isBack = (document.body && document.body.classList && document.body.classList.contains("back")) || /(^|\/)(back(\.html)?)(\/|$)/.test(location.pathname);
       if(!isBack) return;
       const flag = sessionStorage.getItem("enter_back_blackout_fx");
       if(!flag) return;
