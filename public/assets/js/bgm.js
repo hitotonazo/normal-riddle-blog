@@ -42,8 +42,12 @@
 
   const audio = document.createElement("audio");
   audio.loop = true;
+  audio.setAttribute("playsinline","");
+  audio.setAttribute("webkit-playsinline","");
+  audio.muted = false;
   audio.preload = "auto";
   audio.volume = isBack ? 0.20 : 0.24;
+  try{ audio.style.display="none"; document.body.appendChild(audio); }catch(e){}
 
   const btn = document.getElementById("bgmToggle");
   const setLabel = (on)=>{
@@ -72,10 +76,25 @@
     tryPlay();
   };
   window.addEventListener("pointerdown", gesture, {capture:true, once:true});
+  window.addEventListener("touchstart", gesture, {capture:true, once:true});
   window.addEventListener("keydown", gesture, {capture:true, once:true});
   window.addEventListener("scroll", gesture, {capture:true, once:true});
 
   if(btn){
+    
+    const btnTouch = async (ev)=>{
+      // treat as user gesture to start audio on mobile
+      if(!enabled){
+        // toggle on
+        enabled = true;
+        try{ localStorage.setItem(KEY, "on"); }catch(e){}
+      }
+      await tryPlay();
+      setLabel(enabled);
+    };
+    btn.addEventListener("pointerdown", btnTouch);
+    btn.addEventListener("touchstart", btnTouch, {passive:true});
+
     btn.addEventListener("click", async ()=>{
       // Normal toggle behavior
       enabled = !enabled;
