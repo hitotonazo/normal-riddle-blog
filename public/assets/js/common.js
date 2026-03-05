@@ -27,13 +27,21 @@ async function loadPosts(){
   const res = await fetch("/data/posts.json",{cache:"no-store"});
   if(!res.ok) throw new Error("posts.jsonの読み込みに失敗しました");
   const posts = await res.json();
-  return posts.map(p => ({
-    id:String(p.id), date:String(p.date), type:String(p.type||"front"),
-    title:String(p.title||""), body:String(p.body||""),
-    tags:Array.isArray(p.tags)?p.tags.map(String):[],
-    excerpt:String(p.excerpt||""), readingTime:String(p.readingTime||"")
-  }));
+    return posts.map(p => {
+    const out = Object.assign({}, p);
+    // normalize required fields (keep extra keys like special/displayDate/thumbnail/image)
+    out.id = String(p.id);
+    out.date = String(p.date);
+    out.type = String(p.type || "front");
+    out.title = String(p.title || "");
+    out.body = String(p.body || "");
+    out.tags = Array.isArray(p.tags) ? p.tags.map(String) : [];
+    out.excerpt = String(p.excerpt || "");
+    out.readingTime = String(p.readingTime || "");
+    return out;
+  });
 }
+
 function buildArchive(posts){
   const map = new Map();
   posts.forEach(p=>{ if(p.date) map.set(p.date,(map.get(p.date)||0)+1); });
