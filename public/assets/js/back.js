@@ -40,6 +40,34 @@ function svgPlaceholderDataUrl(label) {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;
 }
 
+
+function showEndingOverlay(text, kind){
+  let ov = document.getElementById("endingOverlay");
+  if(!ov){
+    ov = document.createElement("div");
+    ov.id = "endingOverlay";
+    ov.innerHTML = `<div class="ending-card"><div class="ending-kind"></div><div class="ending-text"></div><button class="ending-close">閉じる</button></div>`;
+    document.body.appendChild(ov);
+    ov.addEventListener("click", (e)=>{ if(e.target===ov) ov.remove(); });
+    ov.querySelector(".ending-close").addEventListener("click", ()=>ov.remove());
+  }
+  ov.querySelector(".ending-kind").textContent = kind || "";
+  ov.querySelector(".ending-text").textContent = text || "";
+}
+
+function takumiPasswordGate(){
+  const ans = prompt("パスワードを入力してください。\n設問：へびとうまの間にある昔話");
+  if(ans === null) return;
+  const a = String(ans).trim();
+  if(a === "うさぎとかめ"){
+    showEndingOverlay("私はうさぎにはなりたくなかった。", "BAD END");
+  }else if(a === "かちかち山"){
+    showEndingOverlay("私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・", "TRUE END");
+  }else{
+    alert("違います。");
+  }
+}
+
 function createTimelineItem(post, config) {
   const li = document.createElement('li');
   li.className = 't-item';
@@ -57,6 +85,7 @@ function createTimelineItem(post, config) {
   const thumbFallback = svgPlaceholderDataUrl('image');
 
   const url = buildPostUrl(post);
+  const isSpecial = post && post.special === "password";
   const tagsHtml = (post.tags || []).slice(0, 3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
 
   li.innerHTML = `
@@ -69,7 +98,7 @@ function createTimelineItem(post, config) {
       <div class="row">
         <div style="flex:1;min-width:0">
           <div class="pmeta">${escapeHtml(post.date || '')}${post.readingTime ? ' ・ ' + escapeHtml(post.readingTime) : ''}</div>
-          <h2 class="ptitle"><a href="${escapeHtml(url)}">${escapeHtml(post.title || '')}</a></h2>
+          <h2 class="ptitle"><a href="${escapeHtml(isSpecial ? "#" : url)}"ml(url)}">${escapeHtml(post.title || '')}</a></h2>
           <div class="excerpt">${escapeHtml(post.excerpt || '')}</div>
           <div class="tags">${tagsHtml}</div>
         </div>
