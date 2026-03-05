@@ -180,5 +180,18 @@
     ],
     "excerpt": "何があっても、言い訳にはしたくない。",
     "readingTime": "3 min"
+  },
+  {
+    "id": "2024-08-31-bug",
+    "type": "back",
+    "date": "2024-08",
+    "displayDate": "2024-08-??",
+    "title": "（破損）",
+    "excerpt": "…",
+    "content": "",
+    "tags": [
+      "broken"
+    ],
+    "special": "password"
   }
 ]
