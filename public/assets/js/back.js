@@ -97,7 +97,7 @@ function createTimelineItem(post, config) {
     <div class="postcard">
       <div class="row">
         <div style="flex:1;min-width:0">
-          <div class="pmeta">${escapeHtml(post.date || '')}${post.readingTime ? ' ・ ' + escapeHtml(post.readingTime) : ''}</div>
+          <div class="pmeta">${escapeHtml((post.displayDate || post.date) || '')}${post.readingTime ? ' ・ ' + escapeHtml(post.readingTime) : ''}</div>
           <h2 class="ptitle"><a href="${escapeHtml(isSpecial ? "#" : url)}"ml(url)}">${escapeHtml(post.title || '')}</a></h2>
           <div class="excerpt">${escapeHtml(post.excerpt || '')}</div>
           <div class="tags">${tagsHtml}</div>
