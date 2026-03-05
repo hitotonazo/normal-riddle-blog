@@ -341,3 +341,51 @@ html{ background-color: #000; }
     filter: drop-shadow(0 10px 18px rgba(0,0,0,.6));
   }
 }
+
+
+
+/* === Mobile hero sizing === */
+.hero-img img{display:block;width:100%;height:auto}
+@media (max-width: 560px){
+  .hero-inner{padding:12px 10px}
+  .hero-img{border-radius:10px}
+}
+
+
+
+/* === Ending overlay for password-gated bug post === */
+#endingOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.88);
+  display: grid;
+  place-items: center;
+  z-index: 100000;
+}
+#endingOverlay .ending-card{
+  width: min(560px, 92vw);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(10,10,12,.92);
+  border-radius: 14px;
+  padding: 18px 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.6);
+}
+#endingOverlay .ending-kind{
+  font-weight: 700;
+  letter-spacing: .08em;
+  opacity: .9;
+  margin-bottom: 10px;
+}
+#endingOverlay .ending-text{
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+#endingOverlay .ending-close{
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: #e9edf4;
+}
