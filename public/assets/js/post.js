@@ -40,9 +40,23 @@ function applyUiImages(cfg, mode){
 }
 
 
+
+  function fixBackHeaderLinks(){
+    // In back mode, make header "トップ/記事一覧" go to back index
+    const links = Array.from(document.querySelectorAll('.navrow a.navitem'));
+    for(const a of links){
+      const t = (a.textContent || '').trim();
+      if(t === 'トップ' || t === '記事一覧'){
+        a.setAttribute('href','./back.html');
+      }
+    }
+  }
+
+
 (async () => {
   const id = new URL(location.href).searchParams.get("id");
   const wrap = document.querySelector("#postWrap");
+  if(!wrap){ return; }
   if(!id){
     wrap.innerHTML = `<div class="article-card">記事IDが指定されていません。<div class="notice"><a href="./index.html">一覧へ</a></div></div>`;
     return;
@@ -53,11 +67,42 @@ function applyUiImages(cfg, mode){
     wrap.innerHTML = `<div class="article-card">記事が見つかりませんでした。<div class="notice"><a href="./index.html">一覧へ</a></div></div>`;
     return;
   }
+  
+  // Password-gated corrupted entry (works even on direct URL)
+  if(p && p.special === "password"){
+    const ans = prompt("パスワードを入力してください。\n設問：へびとうまの間にある昔話");
+    if(ans === null){ location.href = "./back.html"; return; }
+    const a = String(ans).trim();
+    const show = (kind, text)=>{
+      wrap.innerHTML = `
+        <div class="article-card">
+          <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || "")}</span></div>
+          <h1 class="ptitle" style="margin-top:10px">${escapeHtml(p.title || "（破損）")}</h1>
+          <div class="post-hero">
+            <img class="post-hero-img" src="${escapeHtml(p.image || p.thumbnail || "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E")}" alt=""/>
+          </div>
+          <div class="article" style="margin-top:14px;white-space:pre-wrap">${escapeHtml(text)}</div>
+          <div class="notice"><a href="./back.html">← 記事一覧へ</a></div>
+        </div>
+      `;
+    };
+    if(a === "うさぎとかめ"){
+      show("BAD END", "私はうさぎにはなりたくなかった。");
+    }else if(a === "かちかち山"){
+      show("TRUE END", "私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・");
+    }else{
+      alert("違います。");
+      location.reload();
+    }
+    return;
+  }
+
   document.title = `${p.title} | 手箱日記`;
 
   const mode = new URL(location.href).searchParams.get("mode");
   const isBack = (p.type === "back") || (mode === "back");
   if(isBack){
+    fixBackHeaderLinks();
     document.body.classList.add("back");
     // load back.css if not present
     if(!document.querySelector('link[href="./assets/css/back.css"]')){
@@ -98,11 +143,13 @@ function applyUiImages(cfg, mode){
   const sameType = posts.filter(x=>x.type===p.type);
   const arch = buildArchive(sameType);
   const archEl = document.querySelector("#archiveList");
-  archEl.innerHTML = "";
+  if(archEl){
+    archEl.innerHTML = "";
+  }
   for(const a of arch){
     const x = document.createElement("a");
     x.href = (p.type==="back" ? "./back.html?ym=" : "./index.html?ym=") + encodeURIComponent(a.ym);
     x.textContent = `${a.ym.replace("-", "年")}月`;
-    archEl.appendChild(x);
+    if(archEl) archEl.appendChild(x);
   }
 })();
