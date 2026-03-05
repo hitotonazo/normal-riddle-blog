@@ -120,7 +120,7 @@ function renderArchiveList(posts) {
     const key = p.date.slice(0, 7);
     byMonth.set(key, (byMonth.get(key) || 0) + 1);
   }
-  const months = Array.from(byMonth.keys()).sort((a, b) => (a < b ? 1 : -1));
+  const months = Array.from(byMonth.keys()).sort((a, b) => (a > b ? 1 : -1));
 
   const list = getEl('archiveList');
   if (!list) return;
