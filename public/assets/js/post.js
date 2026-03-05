@@ -47,7 +47,7 @@ function applyUiImages(cfg, mode){
     for(const a of links){
       const t = (a.textContent || '').trim();
       if(t === 'トップ' || t === '記事一覧'){
-        a.setAttribute('href','./back.html');
+        a.setAttribute('href','/back');
       }
     }
   }
@@ -71,7 +71,7 @@ function applyUiImages(cfg, mode){
   // Password-gated corrupted entry (works even on direct URL)
   if(p && p.special === "password"){
     const ans = prompt("パスワードを入力してください。\n設問：へびとうまの間にある昔話");
-    if(ans === null){ location.href = "./back.html"; return; }
+    if(ans === null){ location.href = "/back"; return; }
     const a = String(ans).trim();
     const show = (kind, text)=>{
       wrap.innerHTML = `
@@ -82,7 +82,7 @@ function applyUiImages(cfg, mode){
             <img class="post-hero-img" src="${escapeHtml(p.image || p.thumbnail || "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E")}" alt=""/>
           </div>
           <div class="article" style="margin-top:14px;white-space:pre-wrap">${escapeHtml(text)}</div>
-          <div class="notice"><a href="./back.html">← 記事一覧へ</a></div>
+          <div class="notice"><a href="/back">← 記事一覧へ</a></div>
         </div>
       `;
     };
@@ -119,7 +119,7 @@ function applyUiImages(cfg, mode){
     }
   }
 
-  const backUrl = (p.type === "back") ? "./back.html" : "./index.html";
+  const backUrl = (p.type === "back") ? "/back" : "/index.html";
 
   const cfg = await loadConfig();
     const baseAssets = (cfg.assets && cfg.assets.baseUrl) ? cfg.assets.baseUrl : "";
