@@ -191,7 +191,7 @@ async function initBack() {
   const allPosts = await loadPosts();
   const posts = (allPosts || [])
     .filter(p => (p.type || 'front') === 'back')
-    .sort((a, b) => (a.id < b.id ? 1 : -1));
+    .sort(byDateAsc);
 
   if (!timeline) return;
   timeline.innerHTML = '';
