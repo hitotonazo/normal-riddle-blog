@@ -41,6 +41,75 @@ function applyUiImages(cfg, mode){
 
 
 
+async function verifyCorruptedAnswer(answer){
+  const res = await fetch('/api/check-answer', {
+    method: 'POST',
+    headers: {'content-type':'application/json'},
+    body: JSON.stringify({ answer })
+  });
+  if(!res.ok) throw new Error('verification failed');
+  return await res.json();
+}
+
+function renderCorruptedGate(wrap, p){
+  const black = p.image || p.thumbnail || 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E';
+  wrap.innerHTML = `
+    <div class="article-card corrupted-card">
+      <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
+      <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
+      <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
+      <div class="article" style="margin-top:14px">
+        <p>設問：へびとうまの間にある昔話</p>
+        <form id="corruptedGateForm" class="corrupted-gate-form">
+          <input id="corruptedAnswer" type="password" autocomplete="off" placeholder="パスワード" />
+          <button type="submit">送信</button>
+        </form>
+        <div id="corruptedMsg" class="notice" style="margin-top:10px"></div>
+      </div>
+      <div class="notice"><a href="/back">← 記事一覧へ</a></div>
+    </div>
+  `;
+
+  const form = document.getElementById('corruptedGateForm');
+  const input = document.getElementById('corruptedAnswer');
+  const msg = document.getElementById('corruptedMsg');
+  if(input) input.focus();
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const answer = String(input?.value || '').trim();
+    if(!answer){ if(msg) msg.textContent = '入力してください。'; return; }
+    try{
+      const data = await verifyCorruptedAnswer(answer);
+      if(data?.result === 'bad'){
+        wrap.innerHTML = `
+          <div class="article-card corrupted-card ending bad">
+            <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
+            <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
+            <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
+            <div class="article" style="margin-top:14px;white-space:pre-wrap">私はうさぎにはなりたくなかった。</div>
+            <div class="notice"><a href="/back">← 記事一覧へ</a></div>
+          </div>`;
+        return;
+      }
+      if(data?.result === 'true'){
+        wrap.innerHTML = `
+          <div class="article-card corrupted-card ending true">
+            <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
+            <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
+            <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
+            <div class="article" style="margin-top:14px;white-space:pre-wrap">私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・</div>
+            <div class="notice"><a href="/back">← 記事一覧へ</a></div>
+          </div>`;
+        return;
+      }
+      if(msg) msg.textContent = '違います。';
+    }catch(err){
+      if(msg) msg.textContent = '認証に失敗しました。';
+    }
+  });
+}
+
+
   function fixBackHeaderLinks(){
     // In back mode, make header "トップ/記事一覧" go to back index
     const links = Array.from(document.querySelectorAll('.navrow a.navitem'));
@@ -67,33 +136,9 @@ function applyUiImages(cfg, mode){
     wrap.innerHTML = `<div class="article-card">記事が見つかりませんでした。<div class="notice"><a href="./index.html">一覧へ</a></div></div>`;
     return;
   }
-  
-  // Password-gated corrupted entry (works even on direct URL)
-  if(p && p.special === "password"){
-    const ans = prompt("パスワードを入力してください。\n設問：へびとうまの間にある昔話");
-    if(ans === null){ location.href = "/back"; return; }
-    const a = String(ans).trim();
-    const show = (kind, text)=>{
-      wrap.innerHTML = `
-        <div class="article-card">
-          <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || "")}</span></div>
-          <h1 class="ptitle" style="margin-top:10px">${escapeHtml(p.title || "（破損）")}</h1>
-          <div class="post-hero">
-            <img class="post-hero-img" src="${escapeHtml(p.image || p.thumbnail || "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E")}" alt=""/>
-          </div>
-          <div class="article" style="margin-top:14px;white-space:pre-wrap">${escapeHtml(text)}</div>
-          <div class="notice"><a href="/back">← 記事一覧へ</a></div>
-        </div>
-      `;
-    };
-    if(a === "うさぎとかめ"){
-      show("BAD END", "私はうさぎにはなりたくなかった。");
-    }else if(a === "かちかち山"){
-      show("TRUE END", "私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・");
-    }else{
-      alert("違います。");
-      location.reload();
-    }
+  if(p && p.special === "password") {
+    document.title = `${p.title} | 手箱日記`;
+    renderCorruptedGate(wrap, p);
     return;
   }
 
@@ -123,7 +168,7 @@ function applyUiImages(cfg, mode){
 
   const cfg = await loadConfig();
     const baseAssets = (cfg.assets && cfg.assets.baseUrl) ? cfg.assets.baseUrl : "";
-    const heroUrl = joinUrl(baseAssets, `blog-assets/images/${p.date}.png`);
+    const heroUrl = p.image || joinUrl(baseAssets, `blog-assets/images/${p.date}.png`);
 
 
   wrap.innerHTML = `
