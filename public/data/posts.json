@@ -186,7 +186,7 @@
     "type": "back",
     "date": "2026-03",
     "displayDate": "2026-03-??",
-    "title": "（破損）",
+    "title": "邇画焔邂ｱ",
     "excerpt": "",
     "content": "",
     "tags": [
@@ -194,6 +194,7 @@
     ],
     "special": "password",
     "thumbnail": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E",
-    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E"
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E",
+    "displayTitleHint": "玉手箱"
   }
 ]
