@@ -63,19 +63,6 @@ function showEndingOverlay(text, kind){
   ov.querySelector(".ending-text").textContent = text || "";
 }
 
-function takumiPasswordGate(){
-  const ans = prompt("パスワードを入力してください。\n設問：へびとうまの間にある昔話");
-  if(ans === null) return;
-  const a = String(ans).trim();
-  if(a === "うさぎとかめ"){
-    showEndingOverlay("私はうさぎにはなりたくなかった。", "BAD END");
-  }else if(a === "かちかち山"){
-    showEndingOverlay("私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・", "TRUE END");
-  }else{
-    alert("違います。");
-  }
-}
-
 function createTimelineItem(post, config) {
   const li = document.createElement('li');
   li.className = 't-item';
