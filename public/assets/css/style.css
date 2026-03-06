@@ -389,3 +389,10 @@ html{ background-color: #000; }
   background: rgba(255,255,255,.06);
   color: #e9edf4;
 }
+
+
+/* corrupted gate */
+.corrupted-gate-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.corrupted-gate-form input{min-width:220px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:inherit}
+.corrupted-gate-form button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit}
+.corrupted-title{letter-spacing:.08em}
