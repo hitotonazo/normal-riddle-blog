@@ -21,6 +21,14 @@ function formatJPMonth(yyyyMM) {
   return `${y}年${m}月`;
 }
 
+function byDateAsc(a, b) {
+  const ad = String((a && (a.date || a.id)) || "");
+  const bd = String((b && (b.date || b.id)) || "");
+  if (ad < bd) return -1;
+  if (ad > bd) return 1;
+  return 0;
+}
+
 function buildPostUrl(post) {
   // Use the shared post.html and pass mode=back so post.js can style accordingly if implemented.
   const url = new URL('./post.html', window.location.href);
