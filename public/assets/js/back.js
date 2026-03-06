@@ -89,7 +89,7 @@ function createTimelineItem(post, config) {
 
   // Thumbnails follow the same convention as the front page: blog-assets/thumbnails/YYYY-MM.png
   // (Back posts in posts.json typically don't carry an explicit thumbnail field.)
-  const thumbUrl = resolveAssetUrl(config, `blog-assets/thumbnails/${post.date}.png`);
+  const thumbUrl = post.thumbnail || resolveAssetUrl(config, `blog-assets/thumbnails/${post.date}.png`);
   const thumbFallback = svgPlaceholderDataUrl('image');
 
   const url = buildPostUrl(post);
@@ -106,7 +106,7 @@ function createTimelineItem(post, config) {
       <div class="row">
         <div style="flex:1;min-width:0">
           <div class="pmeta">${escapeHtml((post.displayDate || post.date) || '')}${post.readingTime ? ' ・ ' + escapeHtml(post.readingTime) : ''}</div>
-          <h2 class="ptitle"><a href="${escapeHtml(isSpecial ? "#" : url)}"ml(url)}">${escapeHtml(post.title || '')}</a></h2>
+          <h2 class="ptitle"><a href="${escapeHtml(url)}">${escapeHtml(post.title || "")}</a></h2>
           <div class="excerpt">${escapeHtml(post.excerpt || '')}</div>
           <div class="tags">${tagsHtml}</div>
         </div>
@@ -191,7 +191,7 @@ async function initBack() {
   const allPosts = await loadPosts();
   const posts = (allPosts || [])
     .filter(p => (p.type || 'front') === 'back')
-    .sort(byDateAsc);
+    .sort((a, b) => (a.id < b.id ? 1 : -1));
 
   if (!timeline) return;
   timeline.innerHTML = '';
