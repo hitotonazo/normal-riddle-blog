@@ -43,6 +43,11 @@ function applyUiImages(cfg, mode){
 (async () => {
   const cfg = await loadConfig();
 
+  // Apply UI images from config (hero + profile)
+  try {
+    applyUiImages(cfg, 'front');
+  } catch (_) {}
+
   // Top hero (red frame area) comes from R2 (public) via config.json.
   // If you don't set it, the page would fall back to the bundled cover.svg.
   try {
