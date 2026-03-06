@@ -187,7 +187,7 @@ async function initBack() {
     if (profKey) profileImg.src = resolveAssetUrl(config, profKey);
   }
 
-  // Posts A
+  // Posts
   const allPosts = await loadPosts();
   const posts = (allPosts || [])
     .filter(p => (p.type || 'front') === 'back')
