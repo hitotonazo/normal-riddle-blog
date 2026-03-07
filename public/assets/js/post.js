@@ -162,9 +162,8 @@ function renderCorruptedGate(wrap, p){
     <section class="corrupted-gate-screen" aria-label="設問画面">
       <div class="corrupted-gate-inner">
         <div class="corrupted-label">設問</div>
-        <h1 class="corrupted-question">
-          へびとうまの間にある
-          <span class="corrupted-question-text" data-text="寓話">寓話</span>
+        <h1 class="corrupted-question">          
+          <span class="corrupted-question-text" data-text="へびとうまの間にある寓話">へびとうまの間にある寓話</span>
         </h1>
 
         <form id="corruptedGateForm" class="corrupted-gate-form" novalidate>
