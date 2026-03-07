@@ -393,6 +393,33 @@ html{ background-color: #000; }
 
 /* corrupted gate */
 .corrupted-gate-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.corrupted-gate-form input{min-width:220px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:inherit}
-.corrupted-gate-form button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit}
+.corrupted-gate-form input{min-width:220px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.04);color:inherit}
+.corrupted-gate-form button,.corrupted-submit{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.88);background:rgba(255,255,255,.08);color:inherit;box-shadow:0 0 0 1px rgba(255,255,255,.18) inset}
 .corrupted-title{letter-spacing:.08em}
+.corrupted-question{position:relative;display:inline-block;margin-bottom:12px}
+.corrupted-question-text{position:relative;display:inline-block;animation:corrupted-title-glitch 1s steps(1,end) infinite}
+.corrupted-question-text::before,.corrupted-question-text::after{content:attr(data-text);position:absolute;left:0;top:0;opacity:0;pointer-events:none}
+.corrupted-question-text::before{color:rgba(255,255,255,.95);text-shadow:-8px 0 rgba(255,255,255,.65),8px 0 rgba(255,255,255,.35);animation:corrupted-title-glitch-before 1s steps(1,end) infinite}
+.corrupted-question-text::after{color:rgba(255,255,255,.9);text-shadow:0 0 12px rgba(255,255,255,.35);animation:corrupted-title-glitch-after 1s steps(1,end) infinite}
+@keyframes corrupted-title-glitch{
+  0%,72%,100%{transform:none;filter:none}
+  74%{transform:translate(-14px,2px) skewX(18deg);filter:blur(.3px)}
+  76%{transform:translate(18px,-3px) skewX(-22deg);filter:blur(1.2px)}
+  78%{transform:translate(-10px,1px) scaleX(1.18);filter:contrast(180%)}
+  80%{transform:translate(12px,-2px) scaleY(1.15);filter:blur(.8px)}
+  82%{transform:none;filter:none}
+}
+@keyframes corrupted-title-glitch-before{
+  0%,72%,100%{opacity:0;transform:none;clip-path:inset(0 0 100% 0)}
+  74%{opacity:.95;transform:translate(-22px,-2px);clip-path:inset(0 0 62% 0)}
+  76%{opacity:.85;transform:translate(20px,3px);clip-path:inset(28% 0 24% 0)}
+  78%{opacity:.95;transform:translate(-16px,0);clip-path:inset(64% 0 0 0)}
+  80%{opacity:.75;transform:translate(10px,-1px);clip-path:inset(12% 0 44% 0)}
+}
+@keyframes corrupted-title-glitch-after{
+  0%,72%,100%{opacity:0;transform:none;clip-path:inset(100% 0 0 0)}
+  74%{opacity:.9;transform:translate(18px,1px);clip-path:inset(60% 0 0 0)}
+  76%{opacity:.8;transform:translate(-18px,-2px);clip-path:inset(8% 0 58% 0)}
+  78%{opacity:.95;transform:translate(12px,0) scaleX(1.12);clip-path:inset(36% 0 22% 0)}
+  80%{opacity:.7;transform:translate(-8px,1px);clip-path:inset(0 0 72% 0)}
+}
