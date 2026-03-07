@@ -52,55 +52,45 @@ async function verifyCorruptedAnswer(answer){
 }
 
 function renderCorruptedGate(wrap, p){
-<<<<<<< HEAD
   wrap.innerHTML = `
     <section class="corrupted-gate-screen" aria-label="設問画面">
       <div class="corrupted-gate-inner">
         <div class="corrupted-label">設問</div>
-        <h1 class="corrupted-question">へびとうまの間にある<span class="corrupted-question-text" data-text="寓話">寓話</span></h1>
+        <h1 class="corrupted-question">
+          へびとうまの間にある
+          <span class="corrupted-question-text" data-text="寓話">寓話</span>
+        </h1>
+
         <form id="corruptedGateForm" class="corrupted-gate-form" novalidate>
-          <input id="corruptedAnswer" type="text" autocomplete="off" spellcheck="false" placeholder="パスワードを入力" />
-=======
-<<<<<<< HEAD
-  const black = p.image || p.thumbnail || 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E';
-  wrap.innerHTML = `
-    <div class="article-card corrupted-card">
-      <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
-      <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
-      <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
-      <div class="article" style="margin-top:14px">
-        <p class="corrupted-question">設問：<span class="corrupted-question-text" data-text="へびとうまの間にある寓話">へびとうまの間にある寓話</span></p>
-        <form id="corruptedGateForm" class="corrupted-gate-form">
-          <input id="corruptedAnswer" type="text" autocomplete="off" placeholder="パスワードを入力" />
->>>>>>> 892aa7ee984a703bba300d3925905e102c00c32c
+          <input
+            id="corruptedAnswer"
+            type="text"
+            autocomplete="off"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            placeholder="パスワードを入力"
+          />
           <button type="submit" class="corrupted-submit">送信</button>
         </form>
-        <div id="corruptedMsg" class="notice corrupted-msg"></div>
-        <div class="corrupted-back-wrap"><a class="corrupted-back-btn" href="/back">戻る</a></div>
+
+        <div id="corruptedMsg" class="notice corrupted-msg" aria-live="polite"></div>
+
+        <div class="corrupted-back-wrap">
+          <a class="corrupted-back-btn" href="/back">戻る</a>
+        </div>
       </div>
-<<<<<<< HEAD
     </section>
-=======
-      <div class="notice"><a href="/back">← 戻る</a></div>
-    </div>
-=======
-  document.body.className = 'corrupted-page';
-  document.body.innerHTML = `
-    <main class="corrupted-page-wrap">
-      <section class="corrupted-panel" aria-label="設問">
-        <div class="corrupted-question-label">設問</div>
-        <div class="corrupted-question">へびとうまの間にある昔話</div>
-        <form id="corruptedGateForm" class="corrupted-gate-form" autocomplete="off">
-          <input id="corruptedAnswer" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="パスワードを入力" />
-          <button type="submit">送信</button>
-        </form>
-        <div id="corruptedMsg" class="corrupted-msg" aria-live="polite"></div>
-        <a class="corrupted-back-btn" href="/back">裏ブログのトップへ戻る</a>
-      </section>
-    </main>
->>>>>>> 7597a8709663a2293c1f61522665d9dab7e5ed3d
->>>>>>> 892aa7ee984a703bba300d3925905e102c00c32c
   `;
+
+  const q = wrap.querySelector('.corrupted-question-text');
+  if (q) {
+    setInterval(() => {
+      q.classList.add('glitching');
+      setTimeout(() => q.classList.remove('glitching'), 220);
+    }, 1000);
+  }
+}
 
   if(!document.getElementById('corruptedGateStyle')){
     const style = document.createElement('style');
