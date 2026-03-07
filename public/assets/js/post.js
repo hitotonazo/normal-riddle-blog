@@ -52,22 +52,19 @@ async function verifyCorruptedAnswer(answer){
 }
 
 function renderCorruptedGate(wrap, p){
-  const black = p.image || p.thumbnail || 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E';
   wrap.innerHTML = `
-    <div class="article-card corrupted-card">
-      <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
-      <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
-      <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
-      <div class="article" style="margin-top:14px">
-        <p>設問：へびとうまの間にある昔話</p>
-        <form id="corruptedGateForm" class="corrupted-gate-form">
-          <input id="corruptedAnswer" type="password" autocomplete="off" placeholder="パスワード" />
-          <button type="submit">送信</button>
+    <section class="corrupted-gate-screen" aria-label="設問画面">
+      <div class="corrupted-gate-inner">
+        <div class="corrupted-label">設問</div>
+        <h1 class="corrupted-question">へびとうまの間にある<span class="corrupted-question-text" data-text="寓話">寓話</span></h1>
+        <form id="corruptedGateForm" class="corrupted-gate-form" novalidate>
+          <input id="corruptedAnswer" type="text" autocomplete="off" spellcheck="false" placeholder="パスワードを入力" />
+          <button type="submit" class="corrupted-submit">送信</button>
         </form>
-        <div id="corruptedMsg" class="notice" style="margin-top:10px"></div>
+        <div id="corruptedMsg" class="notice corrupted-msg"></div>
+        <div class="corrupted-back-wrap"><a class="corrupted-back-btn" href="/back">戻る</a></div>
       </div>
-      <div class="notice"><a href="/back">← 記事一覧へ</a></div>
-    </div>
+    </section>
   `;
 
   const form = document.getElementById('corruptedGateForm');
@@ -112,13 +109,31 @@ function renderCorruptedGate(wrap, p){
 
   function fixBackHeaderLinks(){
     // In back mode, make header "トップ/記事一覧" go to back index
-    const links = Array.from(document.querySelectorAll('.navrow a.navitem'));
+    const links = Array.from(document.querySelectorAll('.navrow a.navitem, .breadcrumb a'));
     for(const a of links){
       const t = (a.textContent || '').trim();
       if(t === 'トップ' || t === '記事一覧'){
         a.setAttribute('href','/back');
       }
     }
+  }
+
+  function renderArticleBody(body, isBack){
+    const normalized = String(body || '').replace(/\n/g, '\n').replace(/\r\n?/g, '\n').trim();
+    if(!normalized) return '';
+
+    if(!isBack){
+      return `<div class="article" style="margin-top:14px">${escapeHtml(normalized)}</div>`;
+    }
+
+    const paragraphs = normalized
+      .split(/\n\s*\n/)
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map(s => `<p>${escapeHtml(s).replace(/\n/g, '<br>')}</p>`)
+      .join('');
+
+    return `<div class="article article-back" style="margin-top:14px">${paragraphs}</div>`;
   }
 
 
@@ -179,7 +194,7 @@ function renderCorruptedGate(wrap, p){
         <img class="post-hero-img" src="${escapeHtml(heroUrl)}" alt="" onerror="this.closest('.post-hero').style.display='none'" />
       </div>
       ${isBack ? "" : `<div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`}
-      <div class="article" style="margin-top:14px">${escapeHtml(String(p.body || '').replace(/\\n/g, '\n'))}</div>
+      ${renderArticleBody(p.body || '', isBack)}
       <div class="notice"><a href="${backUrl}">← 記事一覧へ</a></div>
     </div>
   `;
