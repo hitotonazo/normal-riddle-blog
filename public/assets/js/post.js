@@ -52,6 +52,7 @@ async function verifyCorruptedAnswer(answer){
 }
 
 function renderCorruptedGate(wrap, p){
+<<<<<<< HEAD
   const black = p.image || p.thumbnail || 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22800%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23000%22/%3E%3C/svg%3E';
   wrap.innerHTML = `
     <div class="article-card corrupted-card">
@@ -68,12 +69,108 @@ function renderCorruptedGate(wrap, p){
       </div>
       <div class="notice"><a href="/back">← 戻る</a></div>
     </div>
+=======
+  document.body.className = 'corrupted-page';
+  document.body.innerHTML = `
+    <main class="corrupted-page-wrap">
+      <section class="corrupted-panel" aria-label="設問">
+        <div class="corrupted-question-label">設問</div>
+        <div class="corrupted-question">へびとうまの間にある昔話</div>
+        <form id="corruptedGateForm" class="corrupted-gate-form" autocomplete="off">
+          <input id="corruptedAnswer" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="パスワードを入力" />
+          <button type="submit">送信</button>
+        </form>
+        <div id="corruptedMsg" class="corrupted-msg" aria-live="polite"></div>
+        <a class="corrupted-back-btn" href="/back">裏ブログのトップへ戻る</a>
+      </section>
+    </main>
+>>>>>>> 7597a8709663a2293c1f61522665d9dab7e5ed3d
   `;
+
+  if(!document.getElementById('corruptedGateStyle')){
+    const style = document.createElement('style');
+    style.id = 'corruptedGateStyle';
+    style.textContent = `
+      html, body.corrupted-page {
+        margin: 0;
+        min-height: 100%;
+        background: #000;
+        color: #e8e8e8;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans JP", sans-serif;
+      }
+      body.corrupted-page {
+        min-height: 100vh;
+      }
+      .corrupted-page-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+      }
+      .corrupted-panel {
+        width: min(100%, 560px);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: stretch;
+      }
+      .corrupted-question-label {
+        font-size: 13px;
+        color: #9a9a9a;
+        letter-spacing: 0.12em;
+      }
+      .corrupted-question {
+        font-size: clamp(22px, 4vw, 30px);
+        font-weight: 700;
+        line-height: 1.6;
+      }
+      .corrupted-gate-form {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .corrupted-gate-form input {
+        flex: 1 1 260px;
+        min-width: 0;
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1px solid #2c2c2c;
+        background: #0d0d0d;
+        color: #f2f2f2;
+        font-size: 16px;
+      }
+      .corrupted-gate-form button,
+      .corrupted-back-btn {
+        padding: 14px 16px;
+        border-radius: 10px;
+        border: 1px solid #2c2c2c;
+        background: #111;
+        color: #f2f2f2;
+        font-size: 15px;
+        text-decoration: none;
+      }
+      .corrupted-gate-form button {
+        cursor: pointer;
+      }
+      .corrupted-msg {
+        min-height: 1.5em;
+        font-size: 14px;
+        color: #b8b8b8;
+      }
+      .corrupted-back-btn {
+        display: inline-flex;
+        width: fit-content;
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
   const form = document.getElementById('corruptedGateForm');
   const input = document.getElementById('corruptedAnswer');
   const msg = document.getElementById('corruptedMsg');
   if(input) input.focus();
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const answer = String(input?.value || '').trim();
@@ -81,25 +178,27 @@ function renderCorruptedGate(wrap, p){
     try{
       const data = await verifyCorruptedAnswer(answer);
       if(data?.result === 'bad'){
-        wrap.innerHTML = `
-          <div class="article-card corrupted-card ending bad">
-            <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
-            <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
-            <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
-            <div class="article" style="margin-top:14px;white-space:pre-wrap">私はうさぎにはなりたくなかった。</div>
-            <div class="notice"><a href="/back">← 記事一覧へ</a></div>
-          </div>`;
+        document.body.innerHTML = `
+          <main class="corrupted-page-wrap">
+            <section class="corrupted-panel">
+              <div class="corrupted-question-label">結果</div>
+              <div class="corrupted-question">私はうさぎにはなりたくなかった。</div>
+              <a class="corrupted-back-btn" href="/back">裏ブログのトップへ戻る</a>
+            </section>
+          </main>
+        `;
         return;
       }
       if(data?.result === 'true'){
-        wrap.innerHTML = `
-          <div class="article-card corrupted-card ending true">
-            <div class="pmeta"><span>${escapeHtml(p.displayDate || p.date || '')}</span></div>
-            <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
-            <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
-            <div class="article" style="margin-top:14px;white-space:pre-wrap">私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・</div>
-            <div class="notice"><a href="/back">← 記事一覧へ</a></div>
-          </div>`;
+        document.body.innerHTML = `
+          <main class="corrupted-page-wrap">
+            <section class="corrupted-panel">
+              <div class="corrupted-question-label">結果</div>
+              <div class="corrupted-question">私はうさぎにはなりたくなかった。しかし養父を死に追いやった千原をどうしても許せない・・・</div>
+              <a class="corrupted-back-btn" href="/back">裏ブログのトップへ戻る</a>
+            </section>
+          </main>
+        `;
         return;
       }
       if(msg) msg.textContent = '違います。';
@@ -110,15 +209,34 @@ function renderCorruptedGate(wrap, p){
 }
 
 
+
   function fixBackHeaderLinks(){
     // In back mode, make header "トップ/記事一覧" go to back index
-    const links = Array.from(document.querySelectorAll('.navrow a.navitem'));
+    const links = Array.from(document.querySelectorAll('.navrow a.navitem, .breadcrumb a'));
     for(const a of links){
       const t = (a.textContent || '').trim();
       if(t === 'トップ' || t === '記事一覧'){
         a.setAttribute('href','/back');
       }
     }
+  }
+
+  function renderArticleBody(body, isBack){
+    const normalized = String(body || '').replace(/\n/g, '\n').replace(/\r\n?/g, '\n').trim();
+    if(!normalized) return '';
+
+    if(!isBack){
+      return `<div class="article" style="margin-top:14px">${escapeHtml(normalized)}</div>`;
+    }
+
+    const paragraphs = normalized
+      .split(/\n\s*\n/)
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map(s => `<p>${escapeHtml(s).replace(/\n/g, '<br>')}</p>`)
+      .join('');
+
+    return `<div class="article article-back" style="margin-top:14px">${paragraphs}</div>`;
   }
 
 
@@ -179,7 +297,7 @@ function renderCorruptedGate(wrap, p){
         <img class="post-hero-img" src="${escapeHtml(heroUrl)}" alt="" onerror="this.closest('.post-hero').style.display='none'" />
       </div>
       ${isBack ? "" : `<div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`}
-      <div class="article" style="margin-top:14px">${escapeHtml(String(p.body || '').replace(/\\n/g, '\n'))}</div>
+      ${renderArticleBody(p.body || '', isBack)}
       <div class="notice"><a href="${backUrl}">← 記事一覧へ</a></div>
     </div>
   `;
