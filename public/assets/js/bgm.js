@@ -81,22 +81,8 @@
   window.addEventListener("scroll", gesture, {capture:true, once:true});
 
   if(btn){
-    
-    const btnTouch = async (ev)=>{
-      // treat as user gesture to start audio on mobile
-      if(!enabled){
-        // toggle on
-        enabled = true;
-        try{ localStorage.setItem(KEY, "on"); }catch(e){}
-      }
-      await tryPlay();
-      setLabel(enabled);
-    };
-    btn.addEventListener("pointerdown", btnTouch);
-    btn.addEventListener("touchstart", btnTouch, {passive:true});
-
     btn.addEventListener("click", async ()=>{
-      // Normal toggle behavior
+      // Single click should only toggle once.
       enabled = !enabled;
       try{ localStorage.setItem(KEY, enabled ? "on" : "off"); }catch(e){}
       if(enabled){
