@@ -112,13 +112,31 @@ function renderCorruptedGate(wrap, p){
 
   function fixBackHeaderLinks(){
     // In back mode, make header "トップ/記事一覧" go to back index
-    const links = Array.from(document.querySelectorAll('.navrow a.navitem'));
+    const links = Array.from(document.querySelectorAll('.navrow a.navitem, .breadcrumb a'));
     for(const a of links){
       const t = (a.textContent || '').trim();
       if(t === 'トップ' || t === '記事一覧'){
         a.setAttribute('href','/back');
       }
     }
+  }
+
+  function renderArticleBody(body, isBack){
+    const normalized = String(body || '').replace(/\n/g, '\n').replace(/\r\n?/g, '\n').trim();
+    if(!normalized) return '';
+
+    if(!isBack){
+      return `<div class="article" style="margin-top:14px">${escapeHtml(normalized)}</div>`;
+    }
+
+    const paragraphs = normalized
+      .split(/\n\s*\n/)
+      .map(s => s.trim())
+      .filter(Boolean)
+      .map(s => `<p>${escapeHtml(s).replace(/\n/g, '<br>')}</p>`)
+      .join('');
+
+    return `<div class="article article-back" style="margin-top:14px">${paragraphs}</div>`;
   }
 
 
@@ -179,7 +197,7 @@ function renderCorruptedGate(wrap, p){
         <img class="post-hero-img" src="${escapeHtml(heroUrl)}" alt="" onerror="this.closest('.post-hero').style.display='none'" />
       </div>
       ${isBack ? "" : `<div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`}
-      <div class="article" style="margin-top:14px">${escapeHtml(String(p.body || '').replace(/\\n/g, '\n'))}</div>
+      ${renderArticleBody(p.body || '', isBack)}
       <div class="notice"><a href="${backUrl}">← 記事一覧へ</a></div>
     </div>
   `;
