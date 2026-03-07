@@ -59,14 +59,14 @@ function renderCorruptedGate(wrap, p){
       <h1 class="ptitle corrupted-title" style="margin-top:10px">${escapeHtml(p.title || '')}</h1>
       <div class="post-hero"><img class="post-hero-img" src="${escapeHtml(black)}" alt=""/></div>
       <div class="article" style="margin-top:14px">
-        <p>設問：へびとうまの間にある昔話</p>
+        <p class="corrupted-question">設問：<span class="corrupted-question-text" data-text="へびとうまの間にある寓話">へびとうまの間にある寓話</span></p>
         <form id="corruptedGateForm" class="corrupted-gate-form">
-          <input id="corruptedAnswer" type="password" autocomplete="off" placeholder="パスワード" />
-          <button type="submit">送信</button>
+          <input id="corruptedAnswer" type="text" autocomplete="off" placeholder="パスワードを入力" />
+          <button type="submit" class="corrupted-submit">送信</button>
         </form>
         <div id="corruptedMsg" class="notice" style="margin-top:10px"></div>
       </div>
-      <div class="notice"><a href="/back">← 記事一覧へ</a></div>
+      <div class="notice"><a href="/back">← 戻る</a></div>
     </div>
   `;
 
