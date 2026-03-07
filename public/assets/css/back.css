@@ -85,3 +85,16 @@ body.back .weird.spinZ{ transform: rotate(180deg) !important; }
 
 /* Post page hero frame: use dark frame (avoid the light border from base theme) */
 body.back .post-hero{border-color:#0b0d12!important;background:#0b0d12!important}
+
+
+/* Back post body: clearer paragraph spacing */
+body.back .article-back{
+  white-space: normal !important;
+  line-height: 2.05;
+}
+body.back .article-back p{
+  margin: 0 0 1.15em;
+}
+body.back .article-back p:last-child{
+  margin-bottom: 0;
+}
