@@ -393,9 +393,10 @@ html{ background-color: #000; }
 
 /* corrupted gate */
 .corrupted-gate-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.corrupted-gate-form input{min-width:220px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:inherit}
-.corrupted-gate-form button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:inherit}
+.corrupted-gate-form input{min-width:220px;max-width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.04);color:inherit}
+.corrupted-gate-form button,.corrupted-submit{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.88);background:rgba(255,255,255,.08);color:inherit;box-shadow:0 0 0 1px rgba(255,255,255,.18) inset}
 .corrupted-title{letter-spacing:.08em}
+<<<<<<< HEAD
 
 /* corrupted gate full screen */
 .corrupted-gate-screen{
@@ -473,6 +474,13 @@ html{ background-color: #000; }
   text-shadow:0 0 12px rgba(255,255,255,.35);
   animation:corrupted-title-glitch-after 1s steps(1,end) infinite;
 }
+=======
+.corrupted-question{position:relative;display:inline-block;margin-bottom:12px}
+.corrupted-question-text{position:relative;display:inline-block;animation:corrupted-title-glitch 1s steps(1,end) infinite}
+.corrupted-question-text::before,.corrupted-question-text::after{content:attr(data-text);position:absolute;left:0;top:0;opacity:0;pointer-events:none}
+.corrupted-question-text::before{color:rgba(255,255,255,.95);text-shadow:-8px 0 rgba(255,255,255,.65),8px 0 rgba(255,255,255,.35);animation:corrupted-title-glitch-before 1s steps(1,end) infinite}
+.corrupted-question-text::after{color:rgba(255,255,255,.9);text-shadow:0 0 12px rgba(255,255,255,.35);animation:corrupted-title-glitch-after 1s steps(1,end) infinite}
+>>>>>>> 892aa7ee984a703bba300d3925905e102c00c32c
 @keyframes corrupted-title-glitch{
   0%,72%,100%{transform:none;filter:none}
   74%{transform:translate(-14px,2px) skewX(18deg);filter:blur(.3px)}
