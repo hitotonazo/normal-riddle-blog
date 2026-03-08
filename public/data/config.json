@@ -20,5 +20,9 @@
       "ui": "blog-assets/ui",
       "bgm": "blog-assets/bgm"
     }
+  },
+  "media": {
+    "badEndVideo": "blog-assets/videos/bad-end/bad-end.mp4",
+    "badEndPoster": "blog-assets/videos/bad-end/bad-end-poster.jpg"
   }
 }
