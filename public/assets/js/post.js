@@ -470,7 +470,7 @@ function renderCorruptedGate(wrap){
       q.classList.add('glitching');
       setTimeout(() => q.classList.remove('glitching'), 220);
     }, 1000);
-=======
+
 function renderCorruptedGate(wrap, p){
   wrap.innerHTML = `
     <section class="corrupted-gate-screen" aria-label="設問画面">
@@ -621,7 +621,6 @@ function renderCorruptedGate(wrap, p){
       }
     `;
     document.head.appendChild(style);
->>>>>>> 6affbcc389f484b606b6a16115beda793e6f4d15
   }
 
   const q = wrap.querySelector('.corrupted-question-text');
@@ -985,19 +984,19 @@ function renderCorruptedGate(wrap, p){
     try{
       const data = await verifyCorruptedAnswer(answer);
       if(data?.result === 'bad'){
-<<<<<<< HEAD
+
         location.href = '/post.html?id=2024-08-31-bug&mode=back&end=bad';
         return;
       }
       if(data?.result === 'true'){
         location.href = '/post.html?id=2024-08-31-bug&mode=back&end=true&page=1';
-=======
+
         renderResultScreen('私はうさぎにはなりたくなかった。', 'ここで終わりです。');
         return;
       }
       if(data?.result === 'true'){
         renderResultScreen('私は、ウサギにはなりたくなかった。', TRUE_END_TEXT);
->>>>>>> 6affbcc389f484b606b6a16115beda793e6f4d15
+
         return;
       }
       if(msg) msg.textContent = '違います。';
@@ -1015,7 +1014,7 @@ function renderTrueEnd(wrap){
   const prev = page > 1 ? `/post.html?id=2024-08-31-bug&mode=back&end=true&page=${page - 1}` : '';
   const next = page < 3 ? `/post.html?id=2024-08-31-bug&mode=back&end=true&page=${page + 1}` : '/back';
 
-<<<<<<< HEAD
+
   wrap.innerHTML = `
     <article class="article-card special-card">
       <div class="pmeta"><span>True End</span><span>${page} / 3</span></div>
@@ -1063,7 +1062,7 @@ function fixBackHeaderLinks(){
     if(t === 'タグ') a.setAttribute('href','/tags.html?mode=back');
   }
 }
-=======
+
   function fixBackHeaderLinks(){
     // In back mode, make header "トップ/記事一覧" go to back index
     const links = Array.from(document.querySelectorAll('.navrow a.navitem, .breadcrumb a'));
@@ -1093,7 +1092,7 @@ function fixBackHeaderLinks(){
     return `<div class="article article-back" style="margin-top:14px">${paragraphs}</div>`;
   }
 
->>>>>>> 6affbcc389f484b606b6a16115beda793e6f4d15
+
 
 (async () => {
   const params = getParams();
@@ -1137,11 +1136,11 @@ function fixBackHeaderLinks(){
   }
 
   document.title = `${p.title} | 手箱日記`;
-<<<<<<< HEAD
+
   const backUrl = (p.type === 'back') ? '/back' : '/index.html';
   const baseAssets = (cfg.assets && cfg.assets.baseUrl) ? cfg.assets.baseUrl : '';
   const heroUrl = p.image || joinUrlLocal(baseAssets, `blog-assets/images/${p.date}.png`);
-=======
+
 
   const mode = new URL(location.href).searchParams.get("mode");
   const isBack = (p.type === "back") || (mode === "back");
@@ -1169,7 +1168,7 @@ function fixBackHeaderLinks(){
     const baseAssets = (cfg.assets && cfg.assets.baseUrl) ? cfg.assets.baseUrl : "";
     const heroUrl = p.image || joinUrl(baseAssets, `blog-assets/images/${p.date}.png`);
 
->>>>>>> 6affbcc389f484b606b6a16115beda793e6f4d15
+
 
   wrap.innerHTML = `
     <div class="article-card">
@@ -1178,13 +1177,13 @@ function fixBackHeaderLinks(){
       <div class="post-hero">
         <img class="post-hero-img" src="${escapeHtml(heroUrl)}" alt="" onerror="this.closest('.post-hero').style.display='none'" />
       </div>
-<<<<<<< HEAD
+
       ${isBack ? '' : `<div class="tags">${p.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>`}
       <div class="article" style="margin-top:14px">${escapeHtml(String(p.body || '').replace(/\\n/g, '\n'))}</div>
-=======
+
       ${isBack ? "" : `<div class="tags">${p.tags.map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`}
       ${renderArticleBody(p.body || '', isBack)}
->>>>>>> 6affbcc389f484b606b6a16115beda793e6f4d15
+
       <div class="notice"><a href="${backUrl}">← 記事一覧へ</a></div>
     </div>
   `;
