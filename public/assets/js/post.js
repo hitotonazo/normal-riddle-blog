@@ -27,7 +27,7 @@ async function verifyCorruptedAnswer(answer){
   return await res.json();
 }
 
-<<<<<<< HEAD
+
 function getParams(){
   return new URL(location.href).searchParams;
 }
