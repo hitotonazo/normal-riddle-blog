@@ -6,3 +6,16 @@ BGMをR2で配信する場合:
 3) もしくは bgm.frontUrl / bgm.backUrl に完全なURLを直書きでもOK。
 
 注意: ブラウザの自動再生制限のため、初回はクリック/スクロール等の操作後に再生されます。
+
+
+---
+
+Bad End動画の推奨R2配置
+- blog-assets/videos/bad-end/bad-end.mp4
+- blog-assets/videos/bad-end/bad-end-poster.jpg
+
+config.json では以下を使用します:
+"media": {
+  "badEndVideo": "blog-assets/videos/bad-end/bad-end.mp4",
+  "badEndPoster": "blog-assets/videos/bad-end/bad-end-poster.jpg"
+}
